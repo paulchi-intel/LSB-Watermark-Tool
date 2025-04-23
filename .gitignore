@@ -37,5 +37,10 @@ ENV/
 *.bmp
 *.jpg
 *.jpeg
-*.png
-*.log 
+screenshot*.png
+watermarked*.png
+difference*.png
+*.log
+
+# Allow icon
+!icon_lsb_watermark_tool.png 

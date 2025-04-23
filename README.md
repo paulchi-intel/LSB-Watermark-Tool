@@ -1,3 +1,5 @@
+<img src="icon_lsb_watermark_tool.png" alt="LSB Watermark Tool Icon" width="128"/>
+
 # LSB Watermark Tool
 
 A Python-based tool for embedding and extracting digital watermarks using the Least Significant Bit (LSB) technique.
