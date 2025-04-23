@@ -409,7 +409,7 @@ class CMain:
 
     def __add_visible_watermark(self):
         """
-        在截圖上直接繪製可見的浮水印文字
+        在截圖上直接繪製半透明且重複的浮水印文字
         """
         # 先截圖
         self.__capture_screen(save_path="screenshot.bmp", show=False)
@@ -420,36 +420,48 @@ class CMain:
             print("無法讀取截圖檔案")
             return
 
+        # 創建一個與原圖相同大小的透明圖層
+        watermark_layer = np.zeros_like(img)
+        
         # 設定文字屬性
         font = cv2.FONT_HERSHEY_SIMPLEX
-        font_scale = 2.0  # 改回原來的大小
-        font_thickness = 2  # 改回原來的粗細
+        font_scale = 2.0
+        font_thickness = 2
         text = self.watermark
         
         # 獲取文字大小
         (text_width, text_height), _ = cv2.getTextSize(text, font, font_scale, font_thickness)
         
-        # 計算文字位置（正中央）
-        x = (img.shape[1] - text_width) // 2
-        y = (img.shape[0] + text_height) // 2
+        # 計算重複的間距
+        spacing_x = text_width * 2
+        spacing_y = text_height * 3
         
-        # 繪製白色背景（提高可讀性）
-        cv2.rectangle(img, 
-                     (x - 10, y - text_height - 10),
-                     (x + text_width + 10, y + 10),
-                     (255, 255, 255),
-                     -1)
+        # 計算需要重複的次數
+        repeat_x = img.shape[1] // spacing_x + 2  # 加2確保覆蓋邊緣
+        repeat_y = img.shape[0] // spacing_y + 2
         
-        # 繪製文字
-        cv2.putText(img, text, (x, y), font, font_scale, (0, 0, 0), font_thickness)
+        # 在不同位置重複繪製文字
+        for i in range(repeat_y):
+            for j in range(repeat_x):
+                x = j * spacing_x - spacing_x//2
+                y = i * spacing_y
+                
+                # 繪製文字到透明圖層
+                cv2.putText(watermark_layer, text, (x, y), font, font_scale, (255, 255, 255), font_thickness)
+        
+        # 設定透明度（alpha值）
+        alpha = 0.3  # 30% 不透明度
+        
+        # 將浮水印圖層與原圖混合
+        result = cv2.addWeighted(img, 1.0, watermark_layer, alpha, 0)
         
         # 儲存圖片
-        cv2.imwrite("no_hide.bmp", img)
-        print(f"\n可見浮水印已加入，檔案已儲存為 no_hide.bmp")
+        cv2.imwrite("no_hide.bmp", result)
+        print(f"\n半透明浮水印已加入，檔案已儲存為 no_hide.bmp")
         print(f"浮水印文字: {self.watermark}\n")
         
         # 顯示圖片
-        cv2.imshow("Visible Watermark", img)
+        cv2.imshow("Visible Watermark", result)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
