@@ -26,7 +26,7 @@ A Python-based tool for embedding and extracting digital watermarks using the Le
 ### 安裝步驟
 1. 克隆專案到本地：
 ```bash
-git clone https://github.com/[your-username]/LSB-Watermark-Tool.git
+git clone https://github.com/paulchi-intel/LSB-Watermark-Tool.git
 cd LSB-Watermark-Tool
 ```
 
@@ -52,6 +52,33 @@ python main.py
    - 8: 提取具有冗餘保護的浮水印
    - 9: 添加可見浮水印
    - 0: 退出程式
+
+### 使用範例
+1. 基本 LSB 浮水印：
+```
+>>> 1  # 先截取螢幕畫面
+>>> 3  # 設定浮水印文字
+請輸入新的浮水印文字: Hello World
+>>> 4  # 使用 LSB 技術嵌入浮水印
+>>> 7  # 提取浮水印檢視結果
+```
+
+2. 具有冗餘保護的浮水印：
+```
+>>> 1  # 先截取螢幕畫面
+>>> 3  # 設定浮水印文字
+請輸入新的浮水印文字: Protected Text
+>>> 5  # 使用具有冗餘保護的 LSB 技術嵌入浮水印
+>>> 8  # 提取具有冗餘保護的浮水印
+```
+
+3. 可見浮水印：
+```
+>>> 1  # 先截取螢幕畫面
+>>> 3  # 設定浮水印文字
+請輸入新的浮水印文字: Visible Mark
+>>> 9  # 添加可見浮水印
+```
 
 ### 注意事項
 - 建議在嵌入浮水印前先進行螢幕截圖
@@ -80,7 +107,7 @@ This is a tool for embedding and extracting digital watermarks in images using t
 ### Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/[your-username]/LSB-Watermark-Tool.git
+git clone https://github.com/paulchi-intel/LSB-Watermark-Tool.git
 cd LSB-Watermark-Tool
 ```
 
@@ -106,6 +133,33 @@ python main.py
    - 8: Extract watermark with redundancy
    - 9: Add visible watermark
    - 0: Exit
+
+### Usage Examples
+1. Basic LSB Watermark:
+```
+>>> 1  # Capture screen first
+>>> 3  # Set watermark text
+Enter new watermark text: Hello World
+>>> 4  # Add LSB watermark
+>>> 7  # Extract watermark to verify
+```
+
+2. Watermark with Redundancy Protection:
+```
+>>> 1  # Capture screen first
+>>> 3  # Set watermark text
+Enter new watermark text: Protected Text
+>>> 5  # Add LSB watermark with redundancy
+>>> 8  # Extract watermark with redundancy
+```
+
+3. Visible Watermark:
+```
+>>> 1  # Capture screen first
+>>> 3  # Set watermark text
+Enter new watermark text: Visible Mark
+>>> 9  # Add visible watermark
+```
 
 ### Notes
 - It's recommended to capture the screen before adding watermarks
